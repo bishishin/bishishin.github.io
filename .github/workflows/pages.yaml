@@ -33,7 +33,7 @@ jobs:
         with:
           original: techblog.rss
           output: techblog-filtered.rss
-          threshold: ${{ env.LIKE_THRESHOLD }}
+          threshold: ${{ vars.LIKE_THRESHOLD }}
       - run: npm install xslt3
       - run: npx xslt3 -xsl:expired.xsl -s:techblog-filtered.rss -o:rss/techblog.rss limitDateTime="$(date +%Y-%m-%dT%H:%M:%S	-u -d '14 days ago')"
       - name: Setup Pages
