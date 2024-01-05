@@ -29,7 +29,7 @@ jobs:
         uses: actions/checkout@v4
       - run: curl -o techblog.rss https://yamadashy.github.io/tech-blog-rss-feed/feeds/rss.xml
       - name: Filter techblog
-        uses: bishishin/filter-feed-likes-action
+        uses: bishishin/filter-feed-likes-action@dc09124fbec4c3e424d1479a7b9e394fa82d25aa
         with:
           original: techblog.rss
           output: techblog-filtered.rss
