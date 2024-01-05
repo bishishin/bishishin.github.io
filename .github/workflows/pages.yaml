@@ -28,20 +28,20 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - run: curl -o techblog.rss https://yamadashy.github.io/tech-blog-rss-feed/feeds/rss.xml
-      - run: npm install xslt3
-      - run: echo $(date +%Y-%m-%dT%H:%M:%S	-u -d '14 days ago')
-      - run: echo $LIKE_THRESHOLD
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
+      - name: Filter techblog
+        uses: bishishin/filter-feed-likes-action@latest
         with:
-          name: techblog-original
-          path: 'techblog.rss'
+          original: techblog.rss
+          output: techblog-filtered.rss
+          threshold: ${{ env.LIKE_THRESHOLD }}
+      - run: npm install xslt3
+      - run: npx xslt3 -xsl:expired.xsl -s:techblog-filtered.rss -o:rss/techblog.rss limitDateTime="$(date +%Y-%m-%dT%H:%M:%S	-u -d '14 days ago')"
       - name: Setup Pages
         uses: actions/configure-pages@v4
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: 'docs'
+          path: 'rss'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
