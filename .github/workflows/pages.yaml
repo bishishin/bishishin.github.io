@@ -27,12 +27,17 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - run: curl -o techblog.rss https://yamadashy.github.io/tech-blog-rss-feed/feeds/rss.xml
+      - run: npm install xslt3
       - name: Setup Pages
         uses: actions/configure-pages@v4
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: 'docs'
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: 'techblog.rss'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
