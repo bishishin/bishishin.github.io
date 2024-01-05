@@ -30,6 +30,7 @@ jobs:
       - run: curl -o techblog.rss https://yamadashy.github.io/tech-blog-rss-feed/feeds/rss.xml
       - run: npm install xslt3
       - run: echo $(date +%Y-%m-%dT%H:%M:%S	-u -d '14 days ago')
+      - run: echo $LIKE_THRESHOLD
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
