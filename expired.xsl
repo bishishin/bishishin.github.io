@@ -4,11 +4,13 @@
     <xsl:param name="limitDateTime" as="xs:dateTime" />
     <xsl:template match="/atom:feed">
         <xsl:copy>
-            <xsl:copy-of select="atom:title" />
-            <xsl:copy-of select="atom:link" />
-            <xsl:copy-of select="atom:updated" />
-            <xsl:copy-of select="atom:author" />
             <xsl:copy-of select="atom:id" />
+            <xsl:copy-of select="atom:title" />
+            <xsl:copy-of select="atom:updated" />
+            <xsl:copy-of select="atom:generator" />
+            <xsl:copy-of select="atom:subtitle" />
+            <xsl:copy-of select="atom:logo" />
+            <xsl:copy-of select="atom:rights" />
             <xsl:copy-of select="atom:entry[position() &lt;= 20]" />
             <xsl:for-each select="atom:entry[position() &gt; 20]">
                 <xsl:if test="xs:dateTime(atom:updated) gt $limitDateTime">
