@@ -22,14 +22,26 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - run: curl -o techblog-original.xml https://yamadashy.github.io/tech-blog-rss-feed/feeds/rss.xml
+      - uses: actions/cache/restore@v3
+        id: restore-cache
+        with:
+          path: feed
+          key: feed-${{ github.run_id }}
+          restore-keys: feed
       - name: Filter techblog
         uses: bishishin/filter-feed-by-likes-action@fe31a10e636844694901ae0f0fe6214682d0391c
         with:
           original: techblog-original.xml
+          cache: feed/techblog.atom
           output: techblog.atom
           threshold: ${{ vars.LIKE_THRESHOLD }}
       - run: npm install xslt3
       - run: npx xslt3 -xsl:expired.xsl -s:techblog.atom -o:feed/techblog.atom limitDateTime="$(date +%Y-%m-%dT%H:%M:%S	-u -d '14 days ago')"
+      - uses: actions/cache/save@v3
+        id: save-cache
+        with:
+          path: feed
+          key: feed-${{ github.run_id }}
       - name: Setup Pages
         uses: actions/configure-pages@v4
       - name: Upload artifact
