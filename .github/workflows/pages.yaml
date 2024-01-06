@@ -30,6 +30,7 @@ jobs:
           path: feed
           key: feed
       - run: curl -o techblog-original.xml https://yamadashy.github.io/tech-blog-rss-feed/feeds/rss.xml
+      - run: curl -o classmethod-original.xml https://dev.classmethod.jp/feed/
       - run: curl -o zenn-original.xml https://zenn.dev/feed
       - run: curl -o qiita-original.xml https://qiita.com/popular-items/feed
       - name: Filter techblog
@@ -38,6 +39,13 @@ jobs:
           original: techblog-original.xml
           cache: feed/techblog.xml
           output: techblog.xml
+          threshold: ${{ vars.LIKE_THRESHOLD_COMPANY }}
+      - name: Filter classmethod
+        uses: bishishin/filter-feed-by-likes-action@fe31a10e636844694901ae0f0fe6214682d0391c
+        with:
+          original: classmethod-original.xml
+          cache: feed/classmethod.xml
+          output: classmethod.xml
           threshold: ${{ vars.LIKE_THRESHOLD_COMPANY }}
       - name: Filter zenn
         uses: bishishin/filter-feed-by-likes-action@fe31a10e636844694901ae0f0fe6214682d0391c
@@ -54,6 +62,7 @@ jobs:
           output: qiita.xml
           threshold: ${{ vars.LIKE_THRESHOLD_COMMUNIty }}
       - run: npx xslt3 -xsl:expired.xsl -s:techblog.xml -o:feed/techblog.xml limitDateTime="$(date +%Y-%m-%dT%H:%M:%S	-u -d '14 days ago')"
+      - run: npx xslt3 -xsl:expired.xsl -s:classmethod.xml -o:feed/classmethod.xml limitDateTime="$(date +%Y-%m-%dT%H:%M:%S	-u -d '14 days ago')"
       - run: npx xslt3 -xsl:expired.xsl -s:zenn.xml -o:feed/zenn.xml limitDateTime="$(date +%Y-%m-%dT%H:%M:%S	-u -d '14 days ago')"
       - run: npx xslt3 -xsl:expired.xsl -s:qiita.xml -o:feed/qiita.xml limitDateTime="$(date +%Y-%m-%dT%H:%M:%S	-u -d '14 days ago')"
       - uses: actions/cache/save@v3
