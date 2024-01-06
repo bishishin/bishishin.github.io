@@ -1,6 +1,8 @@
 name: Deploy Feed
 
 on:
+  schedule:
+    - cron:  '0 6,18 * * *'
   workflow_dispatch:
 
 permissions:
@@ -21,21 +23,39 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - run: curl -o techblog-original.xml https://yamadashy.github.io/tech-blog-rss-feed/feeds/rss.xml
+      - run: npm install xslt3
       - uses: actions/cache/restore@v3
         id: restore-cache
         with:
           path: feed
           key: feed
+      - run: curl -o techblog-original.xml https://yamadashy.github.io/tech-blog-rss-feed/feeds/rss.xml
+      - run: curl -o zenn-original.xml https://zenn.dev/feed
+      - run: curl -o qiita-original.xml https://qiita.com/popular-items/feed
       - name: Filter techblog
         uses: bishishin/filter-feed-by-likes-action@fe31a10e636844694901ae0f0fe6214682d0391c
         with:
           original: techblog-original.xml
           cache: feed/techblog.xml
           output: techblog.xml
-          threshold: ${{ vars.LIKE_THRESHOLD }}
-      - run: npm install xslt3
+          threshold: ${{ vars.LIKE_THRESHOLD_COMPANY }}
+      - name: Filter zenn
+        uses: bishishin/filter-feed-by-likes-action@fe31a10e636844694901ae0f0fe6214682d0391c
+        with:
+          original: zenn-original.xml
+          cache: feed/zenn.xml
+          output: zenn.xml
+          threshold: ${{ vars.LIKE_THRESHOLD_COMMUNIty }}  # zennやqiitaには独自のいいね機能があり、はてブの利用率が低いと思われるため、閾値を別にする
+      - name: Filter qiita
+        uses: bishishin/filter-feed-by-likes-action@fe31a10e636844694901ae0f0fe6214682d0391c
+        with:
+          original: qiita-original.xml
+          cache: feed/qiita.xml
+          output: qiita.xml
+          threshold: ${{ vars.LIKE_THRESHOLD_COMMUNIty }}
       - run: npx xslt3 -xsl:expired.xsl -s:techblog.xml -o:feed/techblog.xml limitDateTime="$(date +%Y-%m-%dT%H:%M:%S	-u -d '14 days ago')"
+      - run: npx xslt3 -xsl:expired.xsl -s:zenn.xml -o:feed/zenn.xml limitDateTime="$(date +%Y-%m-%dT%H:%M:%S	-u -d '14 days ago')"
+      - run: npx xslt3 -xsl:expired.xsl -s:qiita.xml -o:feed/qiita.xml limitDateTime="$(date +%Y-%m-%dT%H:%M:%S	-u -d '14 days ago')"
       - uses: actions/cache/save@v3
         id: save-cache
         with:
