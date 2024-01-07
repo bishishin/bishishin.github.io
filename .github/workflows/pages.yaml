@@ -33,6 +33,7 @@ jobs:
       - run: curl -o classmethod-original.xml https://dev.classmethod.jp/feed/
       - run: curl -o zenn-original.xml https://zenn.dev/feed
       - run: curl -o qiita-original.xml https://qiita.com/popular-items/feed
+      - run: npx xslt3 -xsl:qiita.xsl -s:qiita-original.xml -o:qiita-norm.xml
       - name: Filter techblog
         uses: bishishin/filter-feed-by-likes-action@fe31a10e636844694901ae0f0fe6214682d0391c
         with:
@@ -57,7 +58,7 @@ jobs:
       - name: Filter qiita
         uses: bishishin/filter-feed-by-likes-action@fe31a10e636844694901ae0f0fe6214682d0391c
         with:
-          original: qiita-original.xml
+          original: qiita-norm.xml
           cache: feed/qiita.xml
           output: qiita.xml
           threshold: ${{ vars.LIKE_THRESHOLD_COMMUNIty }}
