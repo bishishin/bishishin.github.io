@@ -23,7 +23,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - run: npm install xslt3
       - uses: actions/cache/restore@v3
         id: restore-cache
         with:
@@ -33,6 +32,7 @@ jobs:
       - run: curl -o classmethod-original.xml https://dev.classmethod.jp/feed/
       - run: curl -o zenn-original.xml https://zenn.dev/feed
       - run: curl -o qiita-original.xml https://qiita.com/popular-items/feed
+      - run: npm install xslt3
       - run: npx xslt3 -xsl:qiita.xsl -s:qiita-original.xml -o:qiita-norm.xml
       - name: Filter techblog
         uses: bishishin/filter-feed-by-likes-action@fe31a10e636844694901ae0f0fe6214682d0391c
