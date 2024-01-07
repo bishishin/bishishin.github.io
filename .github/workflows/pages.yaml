@@ -62,10 +62,10 @@ jobs:
           cache: feed/qiita.xml
           output: qiita.xml
           threshold: ${{ vars.LIKE_THRESHOLD_COMMUNIty }}
-      - run: npx xslt3 -xsl:expired.xsl -s:techblog.xml -o:feed/techblog.xml limitDateTime="$(date +%Y-%m-%dT%H:%M:%SZ	-u -d '14 days ago')"
-      - run: npx xslt3 -xsl:expired.xsl -s:classmethod.xml -o:feed/classmethod.xml limitDateTime="$(date +%Y-%m-%dT%H:%M:%SZ	-u -d '14 days ago')"
-      - run: npx xslt3 -xsl:expired.xsl -s:zenn.xml -o:feed/zenn.xml limitDateTime="$(date +%Y-%m-%dT%H:%M:%SZ	-u -d '14 days ago')"
-      - run: npx xslt3 -xsl:expired.xsl -s:qiita.xml -o:feed/qiita.xml limitDateTime="$(date +%Y-%m-%dT%H:%M:%SZ	-u -d '14 days ago')"
+      - run: npx xslt3 -xsl:expired.xsl -s:techblog.xml -o:feed/techblog.xml limitDateTime="$(date +%Y-%m-%dT%H:%M:%SZ -u -d '14 days ago')"
+      - run: npx xslt3 -xsl:expired.xsl -s:classmethod.xml -o:feed/classmethod.xml limitDateTime="$(date +%Y-%m-%dT%H:%M:%SZ -u -d '14 days ago')"
+      - run: npx xslt3 -xsl:expired.xsl -s:zenn.xml -o:feed/zenn.xml limitDateTime="$(date +%Y-%m-%dT%H:%M:%SZ -u -d '14 days ago')"
+      - run: npx xslt3 -xsl:expired.xsl -s:qiita.xml -o:feed/qiita.xml limitDateTime="$(date +%Y-%m-%dT%H:%M:%SZ -u -d '14 days ago')"
       - uses: actions/cache/save@v3
         id: save-cache
         with:
