@@ -54,14 +54,14 @@ jobs:
           original: zenn-original.xml
           cache: feed/zenn.xml
           output: zenn.xml
-          threshold: ${{ vars.LIKE_THRESHOLD_COMMUNIty }}  # zennやqiitaには独自のいいね機能があり、はてブの利用率が低いと思われるため、閾値を別にする
+          threshold: ${{ vars.LIKE_THRESHOLD_COMMUNITY }}  # zennやqiitaには独自のいいね機能があり、はてブの利用率が低いと思われるため、閾値を別にする
       - name: Filter qiita
         uses: bishishin/filter-feed-by-likes-action@fe31a10e636844694901ae0f0fe6214682d0391c
         with:
           original: qiita-norm.xml
           cache: feed/qiita.xml
           output: qiita.xml
-          threshold: ${{ vars.LIKE_THRESHOLD_COMMUNIty }}
+          threshold: ${{ vars.LIKE_THRESHOLD_COMMUNITY }}
       - run: npx xslt3 -xsl:expired.xsl -s:techblog.xml -o:feed/techblog.xml limitDateTime="$(date +%Y-%m-%dT%H:%M:%SZ -u -d '14 days ago')"
       - run: npx xslt3 -xsl:expired.xsl -s:classmethod.xml -o:feed/classmethod.xml limitDateTime="$(date +%Y-%m-%dT%H:%M:%SZ -u -d '14 days ago')"
       - run: npx xslt3 -xsl:expired.xsl -s:zenn.xml -o:feed/zenn.xml limitDateTime="$(date +%Y-%m-%dT%H:%M:%SZ -u -d '14 days ago')"
