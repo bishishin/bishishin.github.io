@@ -35,28 +35,28 @@ jobs:
       - run: npm install xslt3
       - run: npx xslt3 -xsl:qiita.xsl -s:qiita-original.xml -o:qiita-norm.xml
       - name: Filter techblog
-        uses: bishishin/filter-feed-by-likes-action@aca027b13a42f1db7bb6c17e193fcfa769a9e2dc
+        uses: bishishin/filter-feed-by-likes-action@a331e6d8b4988c0373aee4afc9c21f6e23f13b47
         with:
           original: techblog-original.xml
           cache: feed/techblog.xml
           output: techblog.xml
           threshold: ${{ vars.LIKE_THRESHOLD_COMPANY }}
       - name: Filter classmethod
-        uses: bishishin/filter-feed-by-likes-action@aca027b13a42f1db7bb6c17e193fcfa769a9e2dc
+        uses: bishishin/filter-feed-by-likes-action@a331e6d8b4988c0373aee4afc9c21f6e23f13b47
         with:
           original: classmethod-original.xml
           cache: feed/classmethod.xml
           output: classmethod.xml
           threshold: ${{ vars.LIKE_THRESHOLD_COMPANY }}
       - name: Filter zenn
-        uses: bishishin/filter-feed-by-likes-action@aca027b13a42f1db7bb6c17e193fcfa769a9e2dc
+        uses: bishishin/filter-feed-by-likes-action@a331e6d8b4988c0373aee4afc9c21f6e23f13b47
         with:
           original: zenn-original.xml
           cache: feed/zenn.xml
           output: zenn.xml
           threshold: ${{ vars.LIKE_THRESHOLD_COMMUNITY }}  # zennやqiitaには独自のいいね機能があり、はてブの利用率が低いと思われるため、閾値を別にする
       - name: Filter qiita
-        uses: bishishin/filter-feed-by-likes-action@aca027b13a42f1db7bb6c17e193fcfa769a9e2dc
+        uses: bishishin/filter-feed-by-likes-action@a331e6d8b4988c0373aee4afc9c21f6e23f13b47
         with:
           original: qiita-norm.xml
           cache: feed/qiita.xml
