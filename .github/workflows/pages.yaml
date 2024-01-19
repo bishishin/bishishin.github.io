@@ -35,7 +35,7 @@ jobs:
       - run: npm install xslt3
       - run: npx xslt3 -xsl:qiita.xsl -s:qiita-original.xml -o:qiita-norm.xml
       - name: Filter techblog
-        uses: bishishin/filter-feed-by-likes-action@v0
+        uses: bishishin/filter-feed-by-likes-action@main
         with:
           original: techblog-original.xml
           cache: feed/techblog.xml
@@ -49,7 +49,7 @@ jobs:
           output: classmethod.xml
           threshold: ${{ vars.LIKE_THRESHOLD_COMPANY }}
       - name: Filter zenn
-        uses: bishishin/filter-feed-by-likes-action@v0
+        uses: bishishin/filter-feed-by-likes-action@v0.1.0
         with:
           original: zenn-original.xml
           cache: feed/zenn.xml
