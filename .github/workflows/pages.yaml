@@ -48,14 +48,14 @@ jobs:
           output: classmethod.xml
           threshold: ${{ vars.LIKE_THRESHOLD_COMPANY }}
       - name: Filter zenn
-        uses: bishishin/filter-feed-by-likes-action@v0.1.0
+        uses: bishishin/filter-feed-by-likes-action@v0.1.3
         with:
           original: zenn-original.xml
           cache: feed/zenn.xml
           output: zenn.xml
           threshold: ${{ vars.LIKE_THRESHOLD_COMMUNITY }}  # zennやqiitaには独自のいいね機能があり、はてブの利用率が低いと思われるため、閾値を別にする
       - name: Filter qiita
-        uses: bishishin/filter-feed-by-likes-action@1832159cd8cbf02517373e306f4ed8111a9fa4e0
+        uses: bishishin/filter-feed-by-likes-action@4bae1e8b586c6f0265a32874ae75a094731cd296
         with:
           original: qiita-norm.xml
           cache: feed/qiita.xml
