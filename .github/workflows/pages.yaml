@@ -55,7 +55,7 @@ jobs:
           output: zenn.xml
           threshold: ${{ vars.LIKE_THRESHOLD_COMMUNITY }}  # zennやqiitaには独自のいいね機能があり、はてブの利用率が低いと思われるため、閾値を別にする
       - name: Filter qiita
-        uses: bishishin/filter-feed-by-likes-action@4bae1e8b586c6f0265a32874ae75a094731cd296
+        uses: bishishin/filter-feed-by-likes-action@697d719080ae819f658dbd0553032993da3e1b9d
         with:
           original: qiita-norm.xml
           cache: feed/qiita.xml
