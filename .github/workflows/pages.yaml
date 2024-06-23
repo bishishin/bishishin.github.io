@@ -34,7 +34,7 @@ jobs:
       - run: curl -o qiita-original.xml https://qiita.com/popular-items/feed
       - run: npx xslt3 -xsl:qiita.xsl -s:qiita-original.xml -o:qiita-norm.xml
       - name: Filter techblog
-        uses: bishishin/filter-feed-by-likes-action@main
+        uses: bishishin/filter-feed-by-likes-action@d69f74ff55e123a3c5f802c9eb6451956b4a3ef1
         with:
           original: techblog-original.xml
           cache: feed/techblog.xml
@@ -55,7 +55,7 @@ jobs:
           output: zenn.xml
           threshold: ${{ vars.LIKE_THRESHOLD_COMMUNITY }}  # zennやqiitaには独自のいいね機能があり、はてブの利用率が低いと思われるため、閾値を別にする
       - name: Filter qiita
-        uses: bishishin/filter-feed-by-likes-action@697d719080ae819f658dbd0553032993da3e1b9d
+        uses: bishishin/filter-feed-by-likes-action@main
         with:
           original: qiita-norm.xml
           cache: feed/qiita.xml
