@@ -34,7 +34,7 @@ jobs:
       - run: curl -o qiita-original.xml https://qiita.com/popular-items/feed
       - run: npx xslt3 -xsl:qiita.xsl -s:qiita-original.xml -o:qiita-norm.xml
       - name: Filter techblog
-        uses: bishishin/filter-feed-by-likes-action@09a154e1dc152f83d1ed096ac8d910cba278c011
+        uses: bishishin/filter-feed-by-likes-action@v0
         with:
           original: techblog-original.xml
           cache: feed/techblog.xml
