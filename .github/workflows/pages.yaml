@@ -41,14 +41,14 @@ jobs:
           output: techblog.xml
           threshold: ${{ vars.LIKE_THRESHOLD_COMPANY }}
       - name: Filter classmethod
-        uses: bishishin/filter-feed-by-likes-action@v0
+        uses: bishishin/filter-feed-by-likes-action@v1
         with:
           original: classmethod-original.xml
           cache: feed/classmethod.xml
           output: classmethod.xml
           threshold: ${{ vars.LIKE_THRESHOLD_COMPANY }}
       - name: Filter zenn
-        uses: bishishin/filter-feed-by-likes-action@v0.1.3
+        uses: bishishin/filter-feed-by-likes-action@v1.0.1
         with:
           original: zenn-original.xml
           cache: feed/zenn.xml
@@ -61,6 +61,7 @@ jobs:
           cache: feed/qiita.xml
           output: qiita.xml
           threshold: ${{ vars.LIKE_THRESHOLD_COMMUNITY }}
+      - run: cat techblog.xml
       - run: npx xslt3 -xsl:expired.xsl -s:techblog.xml -o:feed/techblog.xml limitDateTime="$(date +%Y-%m-%dT%H:%M:%SZ -u -d '14 days ago')"
       - run: npx xslt3 -xsl:expired.xsl -s:classmethod.xml -o:feed/classmethod.xml limitDateTime="$(date +%Y-%m-%dT%H:%M:%SZ -u -d '14 days ago')"
       - run: npx xslt3 -xsl:expired.xsl -s:zenn.xml -o:feed/zenn.xml limitDateTime="$(date +%Y-%m-%dT%H:%M:%SZ -u -d '14 days ago')"
